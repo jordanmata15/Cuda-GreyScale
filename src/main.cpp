@@ -6,7 +6,7 @@
 int main(int argc, char** argv){
     GreyScale gs = GreyScale();
     gs.loadFile();
-    gs.makeGreyScaleSerial();
+    //gs.makeGreyScaleSerial();
     gs.displayResult();
     gs.writeFile();
 }

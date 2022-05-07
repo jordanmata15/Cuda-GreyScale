@@ -1,14 +1,14 @@
 #ifndef GREYSCALE_HPP
 #define GREYSCALE_HPP
 
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
 #include <string>
 #include <filesystem>
 
+#include "CImg.h"
+
 class GreyScale{
     private:
-        cv::Mat image;
+        cimg_library::CImg<u_char> img;
         std::filesystem::path filePath;
         std::string fileName;
 

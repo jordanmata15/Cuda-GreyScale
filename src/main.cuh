@@ -3,5 +3,6 @@
 
 #include <filesystem>
 #include "GreyScale.cuh"
+#include "ArgParser.cuh"
 
 #endif // MAIN_HPP

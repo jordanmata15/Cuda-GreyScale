@@ -1,4 +1,4 @@
-#include "main.hpp"
+#include "main.cuh"
 // TODO
 #include <iostream>
 
@@ -6,7 +6,9 @@
 int main(int argc, char** argv){
     GreyScale gs = GreyScale();
     gs.loadFile();
+    //gs.display();
     //gs.makeGreyScaleSerial();
-    gs.displayResult();
+    gs.makeGreyScaleParallel();
+    gs.display();
     gs.writeFile();
 }

@@ -2,6 +2,6 @@
 #define MAIN_HPP
 
 #include <filesystem>
-#include "GreyScale.hpp"
+#include "GreyScale.cuh"
 
 #endif // MAIN_HPP

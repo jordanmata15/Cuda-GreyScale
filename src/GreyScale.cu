@@ -39,13 +39,13 @@ void GreyScale::makeGreyScaleSerial() {
 
     /* pointer to image pixels. Colors are rranged in contiguous memory.
     Eg: {RRR...RRRGGG...GGGBBB...BBB} */
-    auto arr = this->img.data();
-    size_t length = width * height * depth;
-    size_t rgbOffset = length;
+    u_char* arr = this->img.data();
+    size_t  length = width * height * depth,
+            rgbOffset = length;
     // pointers to the start of each of the color channels
-    u_char* R = &arr[0 * rgbOffset];
-    u_char* G = &arr[1 * rgbOffset];
-    u_char* B = &arr[2 * rgbOffset];
+    u_char  * R = &arr[0 * rgbOffset],
+            * G = &arr[1 * rgbOffset],
+            * B = &arr[2 * rgbOffset];
 
     for (size_t i = 0; i < length; ++i) {
         u_char greyScaleValue = R[i] * 0.3 + G[i] * 0.59 + B[i] * 0.11;
@@ -71,10 +71,8 @@ void GreyScale::makeGreyScaleParallel(int numBlocks, int numGrids) {
     cudaMemcpy(devImageArr, hostImageArr, length * sizeof(u_char), cudaMemcpyHostToDevice);
     cudaMemcpy(devImageDims, &imageDims, 2 * sizeof(unsigned long), cudaMemcpyHostToDevice);
 
-    numBlocks = 32;
-
     dim3    dimBlock(numBlocks, numBlocks),
-            dimGrid(img.width() / dimBlock.x, img.height() / dimBlock.y);
+            dimGrid( (img.width()+numBlocks-1)/dimBlock.x, (img.height()+numBlocks-1)/dimBlock.y);
     mykernel << <dimGrid, dimBlock >> > (devImageArr, devImageDims);
 
     cudaMemcpy(hostImageArr, devImageArr, length * sizeof(u_char), cudaMemcpyDeviceToHost);
@@ -91,15 +89,15 @@ __global__ void mykernel(u_char* imageArr, int* devImageDims) {
         y = threadIdx.y + blockIdx.y * blockDim.y,
         offset = x + y * blockDim.x * gridDim.x;
 
-
-    if (offset > length) return;
+    // a single channel takes up "length" number of ints
+    if (offset > length*3) return;
 
     u_char  * R = &imageArr[0 * length],
             * G = &imageArr[1 * length],
             * B = &imageArr[2 * length],
             greyScaleValue = 0;
 
-    greyScaleValue = R[offset] * 0.3 + G[offset] * 0.59 + B[offset] * 0.11;
+    greyScaleValue = R[offset]*0.3 + G[offset]*0.59 + B[offset]*0.11;
     R[offset] = greyScaleValue;
     G[offset] = greyScaleValue;
     B[offset] = greyScaleValue;

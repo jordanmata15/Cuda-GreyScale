@@ -1,11 +1,6 @@
 #include "GreyScale.cuh"
-#include <iostream>
-#include <cstring>
-
-#include <cstdio>
 
 using namespace cimg_library;
-
 
 GreyScale::GreyScale() {
   this->filePath = ".." + fileSeparator + "data";

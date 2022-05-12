@@ -5,6 +5,7 @@
 #include "CImg.h"
 #include "DataManager.cuh"
 
+// we can't use the filesystem library with c++11. And CUDA doesn't work with c++17
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 static const std::string fileSeparator = "\\";
 #else

@@ -18,7 +18,7 @@ bool ArgParser::validArgs() {
 Arguments* ArgParser::parseArgs(int argc, char** argv) {
   int option;
 
-  while ((option = getopt(argc, argv, "b:f:d:")) != -1) {
+  while ((option = getopt(argc, argv, "b:f:d:yz")) != -1) {
     switch (option) {
     case 'b':
       args->numBlocks = this->readInt(option, optarg);
@@ -45,6 +45,14 @@ Arguments* ArgParser::parseArgs(int argc, char** argv) {
         printUsage();
         exit(1);
       }
+      break;
+    
+    case 'y':
+      args->displayBefore = true;
+      break;
+
+    case 'z':
+      args->displayAfter = true;
       break;
 
     case '?':

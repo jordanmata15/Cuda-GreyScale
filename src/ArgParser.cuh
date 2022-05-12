@@ -12,7 +12,10 @@
               "\tOptional flags with arguments:\n"\
               "\t\t-b reads in NUM_BLOCKS\t\t(integer greater than 0)\n"\
               "\t\t-f reads in the name of the bmp filename (default is dino.bmp)\n"\
-              "\t\t-d reads in the directory of the bmp file to read (default is ../data)\n"
+              "\t\t-d reads in the directory of the bmp file to read (default is ../data)\n"\
+              "\tOptional flags without arguments:\n"\
+              "\t\t-x display the image before the greyscale\n"\
+              "\t\t-y display the image after the greyscale\n"
 
 /**
  * @brief Arguments object to hold the values of the desired inputs given by the user.
@@ -22,11 +25,17 @@ public:
   int numBlocks;
   std::string filename;
   std::string dataDir;
+  bool displayBefore;
+  bool displayAfter;
 
   /**
    * Basic constructor. sets default values.
    */
-  Arguments() : numBlocks(DEFAULT_BLOCKS), filename(DEFAULT_BMP_FILE), dataDir(DEFAULT_DATA_DIR) {}
+  Arguments() : numBlocks(DEFAULT_BLOCKS),
+                filename(DEFAULT_BMP_FILE), 
+                dataDir(DEFAULT_DATA_DIR), 
+                displayBefore(false), 
+                displayAfter(false) {}
 };
 
 

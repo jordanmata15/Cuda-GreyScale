@@ -6,13 +6,17 @@ EXTERNAL=$(PACKAGE_DIR)/external
 
 PROGRAM=GreyScale
 EXE=$(BUILD)/$(PROGRAM)
+
 CXX=nvcc
 CXXFLAGS=-std=c++11 -g# -Wall
-INCLUDE=-I $(EXTERNAL)/CImg -I $(EXTERNAL)/CImg/plugins -I $(EXTERNAL)/jpeg-6b
-LDLIBS=-L $(EXTERNAL)/CImg -L $(EXTERNAL)/CImg/plugins -Dcimg_display=1 -lm -lX11
+INCLUDE=-I $(EXTERNAL)/CImg
+LDLIBS=-L $(EXTERNAL)/CImg -Dcimg_display=1 -lm -lX11
 
 SRC:=$(shell find $(SRCDIR)/ -name "*.cu") # all *.cpp files in src directory
 OBJS:=$(SRC:$(SRCDIR)/%.cu=$(BUILD)/%.o)	# all *.o files in the build directory
+
+# Optional flags the user can pass in to the make command
+RUN_ARGS=
 
 all: $(OBJS) $(BUILD)/${PROGRAM}
 
@@ -22,8 +26,20 @@ $(EXE): $(OBJS)
 $(BUILD)/%.o: $(SRCDIR)/%.cu $(SRCDIR)/%.cuh
 	$(CXX) $(CXXFLAGS) -c -o $@ $< ${INCLUDE}
 
-run: all
-	$(BUILD)/$(PROGRAM)
+benchmarks:
+	$(BUILD)/$(PROGRAM) -b 1
+	$(BUILD)/$(PROGRAM) -b 2
+	$(BUILD)/$(PROGRAM) -b 4
+	$(BUILD)/$(PROGRAM) -b 8
+	$(BUILD)/$(PROGRAM) -b 12
+	$(BUILD)/$(PROGRAM) -b 16
+	$(BUILD)/$(PROGRAM) -b 20
+	$(BUILD)/$(PROGRAM) -b 24
+	$(BUILD)/$(PROGRAM) -b 28
+	$(BUILD)/$(PROGRAM) -b 32
+
+run:
+	$(BUILD)/$(PROGRAM) $(RUN_ARGS)	
 
 clean:
 	rm -rf $(BUILD)/core* $(OBJS) $(BUILD)/$(PROGRAM)

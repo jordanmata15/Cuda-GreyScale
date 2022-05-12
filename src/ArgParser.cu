@@ -18,7 +18,7 @@ bool ArgParser::validArgs() {
 Arguments* ArgParser::parseArgs(int argc, char** argv) {
   int option;
 
-  while ((option = getopt(argc, argv, "b:f:d:yz")) != -1) {
+  while ((option = getopt(argc, argv, "b:f:d:yzh")) != -1) {
     switch (option) {
     case 'b':
       args->numBlocks = this->readInt(option, optarg);
@@ -30,7 +30,7 @@ Arguments* ArgParser::parseArgs(int argc, char** argv) {
       break;
 
     case 'f':
-      args->filename = option;
+      args->filename = optarg;
       if (args->numBlocks <= 0) {
         fprintf(stderr, "Flag -%c expects an integer input greater than 0. Found: '%s'\n", option, optarg);
         printUsage();
@@ -39,7 +39,7 @@ Arguments* ArgParser::parseArgs(int argc, char** argv) {
       break;
 
     case 'd':
-      args->dataDir = option;
+      args->dataDir = optarg;
       if (args->numBlocks <= 0) {
         fprintf(stderr, "Flag -%c expects an integer input greater than 0. Found: '%s'\n", option, optarg);
         printUsage();
@@ -55,8 +55,12 @@ Arguments* ArgParser::parseArgs(int argc, char** argv) {
       args->displayAfter = true;
       break;
 
-    case '?':
+    case 'h':
       printUsage();
+      exit(0);
+
+    case '?':
+      
       exit(1);
     }
   }

@@ -4,18 +4,18 @@
 #include <iostream>
 #include <getopt.h>
 
-#define DEFAULT_BLOCKS 10
+#define DEFAULT_BLOCKS 1
 #define DEFAULT_DATA_DIR "../data"
 #define DEFAULT_BMP_FILE "dino.bmp"
 #define INVALID -1
 #define USAGE "\nusage: ./GreyScale <optional_flags>\n"\
               "\tOptional flags with arguments:\n"\
-              "\t\t-b reads in NUM_BLOCKS\t\t(integer greater than 0)\n"\
-              "\t\t-f reads in the name of the bmp filename (default is dino.bmp)\n"\
-              "\t\t-d reads in the directory of the bmp file to read (default is ../data)\n"\
+              "\t\t-b <NUM_BLOCKS>\t\tthe size of the block dimension\t\t(integer greater than 0)\n"\
+              "\t\t-f <filename>\t\tthe name of the bmp filename (default is dino.bmp)\n"\
+              "\t\t-d <directory>\t\tthe directory of the bmp file to read without the trailing file separator (default is ../data)\n"\
               "\tOptional flags without arguments:\n"\
-              "\t\t-x display the image before the greyscale\n"\
-              "\t\t-y display the image after the greyscale\n"
+              "\t\t-x \t\t\tdisplay the image before the greyscale\n"\
+              "\t\t-y \t\t\tdisplay the image after the greyscale\n"
 
 /**
  * @brief Arguments object to hold the values of the desired inputs given by the user.

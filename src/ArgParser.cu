@@ -22,8 +22,8 @@ Arguments* ArgParser::parseArgs(int argc, char** argv) {
     switch (option) {
     case 'b':
       args->numBlocks = this->readInt(option, optarg);
-      if (args->numBlocks <= 0) {
-        fprintf(stderr, "Flag -%c expects an integer input greater than 0. Found: '%s'\n", option, optarg);
+      if (args->numBlocks <= 0 || args->numBlocks > 32) {
+        fprintf(stderr, "Flag -%c expects an integer input greater than 0, but less than 32 (32^2 = 1024 maxThreads in CUDA). Found: '%s'\n", option, optarg);
         printUsage();
         exit(1);
       }

@@ -14,5 +14,5 @@ int main(int argc, char** argv){
   
   gs.writeFile();
 
-  std::cout << std::endl << "Time Elapsed (seconds): " << gs.getTimeElapsed() << "\n" << std::endl;
+  std::cout << std::endl << "Num blocks: " << args->numBlocks << " Time Elapsed (seconds): " << gs.getTimeElapsed() << "\n" << std::endl;
 }

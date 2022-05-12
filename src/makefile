@@ -26,19 +26,19 @@ $(EXE): $(OBJS)
 $(BUILD)/%.o: $(SRCDIR)/%.cu $(SRCDIR)/%.cuh
 	$(CXX) $(CXXFLAGS) -c -o $@ $< ${INCLUDE}
 
-benchmarks:
-	$(BUILD)/$(PROGRAM) -b 1
-	$(BUILD)/$(PROGRAM) -b 2
-	$(BUILD)/$(PROGRAM) -b 4
-	$(BUILD)/$(PROGRAM) -b 8
-	$(BUILD)/$(PROGRAM) -b 12
-	$(BUILD)/$(PROGRAM) -b 16
-	$(BUILD)/$(PROGRAM) -b 20
-	$(BUILD)/$(PROGRAM) -b 24
-	$(BUILD)/$(PROGRAM) -b 28
-	$(BUILD)/$(PROGRAM) -b 32
+benchmarks: all
+	$(BUILD)/$(PROGRAM) -b 1 $(RUN_ARGS)
+	$(BUILD)/$(PROGRAM) -b 2 $(RUN_ARGS)
+	$(BUILD)/$(PROGRAM) -b 4 $(RUN_ARGS)
+	$(BUILD)/$(PROGRAM) -b 8 $(RUN_ARGS)
+	$(BUILD)/$(PROGRAM) -b 12 $(RUN_ARGS)
+	$(BUILD)/$(PROGRAM) -b 16 $(RUN_ARGS)
+	$(BUILD)/$(PROGRAM) -b 20 $(RUN_ARGS)
+	$(BUILD)/$(PROGRAM) -b 24 $(RUN_ARGS)
+	$(BUILD)/$(PROGRAM) -b 28 $(RUN_ARGS)
+	$(BUILD)/$(PROGRAM) -b 32 $(RUN_ARGS)
 
-run:
+run: all
 	$(BUILD)/$(PROGRAM) $(RUN_ARGS)	
 
 clean:

@@ -1,5 +1,4 @@
 #include "main.cuh"
-// TODO
 #include <iostream>
 
 
@@ -8,10 +7,9 @@ int main(int argc, char** argv){
     Arguments* args = ap.parseArgs(argc, argv);
 
     GreyScale gs = GreyScale();
-    gs.loadFile();
+    gs.loadFile("../data", "tiger.bmp");
+    gs.makeGreyScaleParallel(args->numBlocks);
     //gs.display();
-    //gs.makeGreyScaleSerial();
-    gs.makeGreyScaleParallel(args->numBlocks, args->numGrids);
-    gs.display();
     gs.writeFile();
+    std::cout << std::endl << "Time Elapsed (seconds): " << gs.getTimeElapsed() << "\n" << std::endl;
 }

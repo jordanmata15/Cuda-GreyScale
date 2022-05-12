@@ -1,8 +1,7 @@
-#ifndef MAIN_HPP
-#define MAIN_HPP
+#ifndef MAIN_CUH
+#define MAIN_CUH
 
-#include <filesystem>
 #include "GreyScale.cuh"
 #include "ArgParser.cuh"
 
-#endif // MAIN_HPP
+#endif // MAIN_CUH
